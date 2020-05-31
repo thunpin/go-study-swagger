@@ -1,18 +1,30 @@
 package main
 
 import (
-	"fmt"
-	"html"
 	"log"
-	"net/http"
+
+	"github.com/go-openapi/loads"
+	"github.com/thunpin/go-study-swagger/pkg/swagger/server/restapi"
+	"github.com/thunpin/go-study-swagger/pkg/swagger/server/restapi/operations"
 )
 
 func main() {
-	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
-		fmt.Fprintf(writer, "Hello, %q", html.EscapeString(request.URL.Path))
-	})
+	// Initialize Swagger
+	swaggerSpec, err := loads.Analyzed(restapi.SwaggerJSON, "")
+	if err != nil {
+		log.Fatalln(err)
+	}
 
-	log.Println("Listening on port :8080")
+	api := operations.NewHelloAPI(swaggerSpec)
+	server := restapi.NewServer(api)
+	defer server.Shutdown()
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	server.Port = 8080
+	log.Printf("Listening on port %d", server.Port)
+
+	// Start listening using having the handlers and port
+	// already set up.
+	if err := server.Serve(); err != nil {
+		log.Fatalln(err)
+	}
 }
