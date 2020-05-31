@@ -2,7 +2,9 @@
 project to study golang with swagger
 
 ## referency
+[standards-project-layout](https://github.com/golang-standards/project-layout)
 [go-http-rest-api](https://dzone.com/articles/how-to-write-a-http-rest-api-server-in-go-in-minut)
+
 
 ## config
 ### install the swagger binary
