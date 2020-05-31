@@ -77,6 +77,31 @@ func init() {
           }
         }
       }
+    },
+    "/oops/{user}": {
+      "get": {
+        "description": "Returns a greeting to the user!",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "The name of the user to greet.",
+            "name": "user",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the greeting.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Invalid characters in \"user\" were provided."
+          }
+        }
+      }
     }
   }
 }`))
@@ -117,6 +142,31 @@ func init() {
       }
     },
     "/hello/{user}": {
+      "get": {
+        "description": "Returns a greeting to the user!",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "The name of the user to greet.",
+            "name": "user",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the greeting.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Invalid characters in \"user\" were provided."
+          }
+        }
+      }
+    },
+    "/oops/{user}": {
       "get": {
         "description": "Returns a greeting to the user!",
         "parameters": [

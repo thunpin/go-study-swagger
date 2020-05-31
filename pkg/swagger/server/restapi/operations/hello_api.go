@@ -45,6 +45,9 @@ func NewHelloAPI(spec *loads.Document) *HelloAPI {
 		GetHelloUserHandler: GetHelloUserHandlerFunc(func(params GetHelloUserParams) middleware.Responder {
 			return middleware.NotImplemented("operation GetHelloUser has not yet been implemented")
 		}),
+		GetOopsUserHandler: GetOopsUserHandlerFunc(func(params GetOopsUserParams) middleware.Responder {
+			return middleware.NotImplemented("operation GetOopsUser has not yet been implemented")
+		}),
 		CheckHealthHandler: CheckHealthHandlerFunc(func(params CheckHealthParams) middleware.Responder {
 			return middleware.NotImplemented("operation CheckHealth has not yet been implemented")
 		}),
@@ -86,6 +89,8 @@ type HelloAPI struct {
 
 	// GetHelloUserHandler sets the operation handler for the get hello user operation
 	GetHelloUserHandler GetHelloUserHandler
+	// GetOopsUserHandler sets the operation handler for the get oops user operation
+	GetOopsUserHandler GetOopsUserHandler
 	// CheckHealthHandler sets the operation handler for the check health operation
 	CheckHealthHandler CheckHealthHandler
 	// ServeError is called when an error is received, there is a default handler
@@ -159,6 +164,9 @@ func (o *HelloAPI) Validate() error {
 
 	if o.GetHelloUserHandler == nil {
 		unregistered = append(unregistered, "GetHelloUserHandler")
+	}
+	if o.GetOopsUserHandler == nil {
+		unregistered = append(unregistered, "GetOopsUserHandler")
 	}
 	if o.CheckHealthHandler == nil {
 		unregistered = append(unregistered, "CheckHealthHandler")
@@ -257,6 +265,10 @@ func (o *HelloAPI) initHandlerCache() {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/hello/{user}"] = NewGetHelloUser(o.context, o.GetHelloUserHandler)
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/oops/{user}"] = NewGetOopsUser(o.context, o.GetOopsUserHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}

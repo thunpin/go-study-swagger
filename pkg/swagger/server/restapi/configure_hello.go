@@ -39,6 +39,11 @@ func configureAPI(api *operations.HelloAPI) http.Handler {
 			return middleware.NotImplemented("operation operations.GetHelloUser has not yet been implemented")
 		})
 	}
+	if api.GetOopsUserHandler == nil {
+		api.GetOopsUserHandler = operations.GetOopsUserHandlerFunc(func(params operations.GetOopsUserParams) middleware.Responder {
+			return middleware.NotImplemented("operation operations.GetOopsUser has not yet been implemented")
+		})
+	}
 	if api.CheckHealthHandler == nil {
 		api.CheckHealthHandler = operations.CheckHealthHandlerFunc(func(params operations.CheckHealthParams) middleware.Responder {
 			return middleware.NotImplemented("operation operations.CheckHealth has not yet been implemented")
