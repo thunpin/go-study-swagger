@@ -1,3 +1,6 @@
+generate:
+	GOFLAGS=-mod=vendor go generate github.com/thunpin/go-study-swagger/internal github.com/thunpin/go-study-swagger/pkg/swagger
+
 swagger.validate:
 	swagger validate pkg/swagger/swagger.yml
 
