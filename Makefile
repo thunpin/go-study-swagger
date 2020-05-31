@@ -1,3 +1,6 @@
+init:
+	go mod vendor
+
 generate:
 	GOFLAGS=-mod=vendor go generate github.com/thunpin/go-study-swagger/internal github.com/thunpin/go-study-swagger/pkg/swagger
 
